@@ -1,0 +1,47 @@
+
+buses
+id
+seats
+
+stations
+id
+name
+
+trips
+id
+bus_id
+
+station_trip
+id
+station_id
+trip_id
+order
+departed_seats
+arriving_seats
+
+users
+id
+name
+
+reservations
+id
+user_id
+trip_id
+seat_no
+from_station_id
+to_station_id
+
+
+
+if (reservations < 12)
+    can reserve
+else if (
+    // departed_seats [1,2,3] and arriving_seats [3, 1] | available seat no #2
+    total this station and prev stations (departed > arriving) and 
+    the next station (departed >= arriving) (repeated) // arriving on seat #2
+)
+    can reserve
+else 
+    can't reserve
+
+
