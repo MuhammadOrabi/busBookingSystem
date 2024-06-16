@@ -18,16 +18,18 @@ class TripSeeder extends Seeder
         Trip::truncate();
 
         $buses = \App\Models\Bus::all();
-        $stationCounts = [4, 6, 8];
+        $stationTrips = [
+            [1, 2, 7, 11, 16],
+            [1, 2, 16, 24, 15],
+            [1, 6, 3, 23],
+        ];
         foreach ($buses as $key => $bus) {
             $trip = Trip::create([
                 'bus_id' => $bus->id,
             ]);
 
-            $stations = \App\Models\Station::get()->random($stationCounts[array_rand($stationCounts)]);
-
-            foreach ($stations as $index => $station) {
-                $trip->stations()->attach($station->id, ['order' => $index + 1]);
+            foreach ($stationTrips[$key] as $index => $station) {
+                $trip->stations()->attach($station, ['order' => $index + 1]);
             }
         }
     }
