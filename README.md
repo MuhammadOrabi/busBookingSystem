@@ -1,6 +1,7 @@
 
 
 ## Run the app (using [sail](https://laravel.com/docs/11.x/sail))
+- copy file `.env.example` to `.env`
 - `./vendor/bin/sail up`
 - `sail php artisan migrate --seed`
 
