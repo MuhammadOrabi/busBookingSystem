@@ -20,7 +20,7 @@ class Trip extends Model
     public function stations(): BelongsToMany
     {
         return $this->belongsToMany(Station::class, 'station_trip', 'trip_id', 'station_id')
-            ->withPivot('order')
+            ->withPivot('order', 'arrived_seats', 'departed_seats')
             ->withTimestamps();
     }
 

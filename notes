@@ -37,11 +37,14 @@ if (reservations < 12)
     can reserve
 else if (
     // departed_seats [1,2,3] and arriving_seats [3, 1] | available seat no #2
-    total this station and prev stations (departed > arriving) and 
+    total this station and prev stations (departed > arriving) and
     the next station (departed >= arriving) (repeated) // arriving on seat #2
 )
     can reserve
-else 
+else
     can't reserve
 
 
+
+
+implement middleware for checking user role
