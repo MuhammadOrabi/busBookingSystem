@@ -21,11 +21,10 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'user'
         ]);
 
         return response()->json([
-            'token' => $user->createToken($user->role)->plainTextToken
+            'token' => $user->createToken('auth')->plainTextToken
         ]);
     }
 
@@ -45,7 +44,7 @@ class AuthController extends Controller
         }
 
         return response()->json([
-            'token' => $user->createToken($user->role)->plainTextToken
+            'token' => $user->createToken('auth')->plainTextToken
         ]);;
     }
 
