@@ -96,7 +96,7 @@ class ReservationController extends Controller
         }
 
         $data = $availableTrips->map(function ($trip) use ($request) {
-            $availableSeats = $this->getAvailableSeats($trip->load('bus', 'reservations'), $request->from_station_id);
+            $availableSeats = $this->getAvailableSeats($trip->load('bus'), $request->from_station_id);
 
             return [
                 'trip' => $trip,
