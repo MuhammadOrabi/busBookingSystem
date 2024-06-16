@@ -21,7 +21,8 @@ class Trip extends Model
     {
         return $this->belongsToMany(Station::class, 'station_trip', 'trip_id', 'station_id')
             ->withPivot('order', 'arrived_seats', 'departed_seats')
-            ->withTimestamps();
+            ->withTimestamps()
+            ->orderBy('order', 'asc');
     }
 
     public function reservations(): HasMany

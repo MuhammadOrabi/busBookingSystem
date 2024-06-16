@@ -9,6 +9,7 @@ Route::post('/logout', 'App\Http\Controllers\AuthController@logout');
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/stations', 'App\Http\Controllers\StationController@list');
+    Route::get('/trips', 'App\Http\Controllers\TripController@list');
 
     Route::post('/trips/available', 'App\Http\Controllers\ReservationController@availableTrips');
     Route::post('/trips/reserve', 'App\Http\Controllers\ReservationController@reserve');
