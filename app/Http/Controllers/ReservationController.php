@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ReservationController extends Controller
 {
-    public function getAvailableSeats(Trip $trip, int $from_station_id): Array {
+    public function getAvailableSeats(Trip $trip, int $from_station_id, int $to_station_id): Array {
         $fromStation = StationTrip::where('trip_id', $trip->id)
             ->where('station_id', $from_station_id)
             ->first();
@@ -42,8 +42,13 @@ class ReservationController extends Controller
             }
             $availableSeats = array_diff($availableSeats, $totalArrived);
 
+            $toStation = StationTrip::where('trip_id', $trip->id)
+                ->where('station_id', $to_station_id)
+                ->first();
+
             $tripNextStations = StationTrip::where('trip_id', $trip->id)
                 ->where('order', '>', $fromStation->order)
+                ->where('order', '<', $toStation->order)
                 ->get();
 
             $totalArrived = [];
@@ -96,7 +101,7 @@ class ReservationController extends Controller
         }
 
         $data = $availableTrips->map(function ($trip) use ($request) {
-            $availableSeats = $this->getAvailableSeats($trip->load('bus'), $request->from_station_id);
+            $availableSeats = $this->getAvailableSeats($trip->load('bus'), $request->from_station_id, $request->to_station_id);
 
             return [
                 'trip' => $trip,
@@ -138,7 +143,7 @@ class ReservationController extends Controller
             ], 400);
         }
 
-        $availableSeats = $this->getAvailableSeats($trip, $request->from_station_id);
+        $availableSeats = $this->getAvailableSeats($trip, $request->from_station_id, $request->to_station_id);
 
         if (in_array($request->seat_number, $availableSeats)) {
             $trip->reservations()->create([
